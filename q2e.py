@@ -1,5 +1,5 @@
 #!python3
-# -*- coding: GBK -*-
+# -*- coding: utf-8 -*-
 # %%
 import pandas as pd
 import tkinter as tk
@@ -7,7 +7,7 @@ from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import askdirectory
 
 window = tk.Tk()
-window.title('µØÕğÄ¿Â¼×ª»»--ÄÔ²Ğ°æ')
+window.title('åœ°éœ‡ç›®å½•è½¬æ¢--è„‘æ®‹ç‰ˆ')
 window.geometry('450x300+500+200')
 inType = tk.StringVar()
 outType = tk.StringVar()
@@ -23,15 +23,15 @@ outcat = ''
 
 
 def q2e(incatalog, outcatalog):
-    # ¶ÁÈ¡Q01Ä¿Â¼
+    # è¯»å–Q01ç›®å½•
     tab = pd.read_csv(incatalog, encoding='gbk', header=1,
                       skip_blank_lines=True, skipinitialspace=True)
-    # É¾³ıÎŞÓÃĞĞ
+    # åˆ é™¤æ— ç”¨è¡Œ
     # tab.drop(labels=[0, 1], axis=0)
     tab.drop(index=[tab.shape[0]-1], inplace=True)
-    # ¸ü¸Ä×Ö¶ÎÃû
+    # æ›´æ”¹å­—æ®µå
     tab.columns = ['lines']
-    # Ìí¼ÓÏà¹ØÊ±¼ä¡¢Î³¶È¡¢¾­¶È¡¢Õğ¼¶¡¢Éî¶È¡¢µØÃûµÈ×Ö¶Î
+    # æ·»åŠ ç›¸å…³æ—¶é—´ã€çº¬åº¦ã€ç»åº¦ã€éœ‡çº§ã€æ·±åº¦ã€åœ°åç­‰å­—æ®µ
     tab['time'] = tab.apply(lambda x: x.lines[:14], axis=1)
     tab['lat'] = tab.apply(lambda x: x.lines[16:19] + '.' +
                            str('%.2f' % (float(x.lines[19:21])/60))[-2:],
@@ -42,7 +42,7 @@ def q2e(incatalog, outcatalog):
     tab['mag'] = tab.apply(lambda x: x.lines[30:33] + '0', axis=1)
     tab['dep'] = tab.apply(lambda x: x.lines[34:37] + '000', axis=1)
     tab['loc'] = tab.apply(lambda x: x.lines[43:], axis=1)
-    # Ìí¼Óeqt¸ñÊ½ÁĞ
+    # æ·»åŠ eqtæ ¼å¼åˆ—
     tab['eqt'] = tab.apply(lambda x:
                            x.time.rjust(15, ' ') +
                            x.lat.rjust(6, ' ') +
@@ -51,17 +51,17 @@ def q2e(incatalog, outcatalog):
                            x.dep.rjust(6, ' ') + ' ' +
                            x['loc'],
                            axis=1)
-    # ½«eqt¸ñÊ½ÁĞ±£´æÖÁÎÄ¼ş
+    # å°†eqtæ ¼å¼åˆ—ä¿å­˜è‡³æ–‡ä»¶
     tab.to_csv(outcatalog, encoding='gbk',
                columns=['eqt'], header=False, index=False)
 
 
-def incatalog_selection():    # ´´½¨commandº¯Êı£¬»ñÈ¡ÊäÈëÊı¾İÀàĞÍ
+def incatalog_selection():    # åˆ›å»ºcommandå‡½æ•°ï¼Œè·å–è¾“å…¥æ•°æ®ç±»å‹
     global incat
     incat = inType.get()
 
 
-def outcatalog_selection():    # ´´½¨commandº¯Êı£¬»ñÈ¡Êä³öÊı¾İÀàĞÍ
+def outcatalog_selection():    # åˆ›å»ºcommandå‡½æ•°ï¼Œè·å–è¾“å‡ºæ•°æ®ç±»å‹
     global outcat
     outcat = outType.get()
 
@@ -86,7 +86,7 @@ def selectMergeFile():
 
 
 def warninggg():
-    tk.messagebox.showwarning('¾¯¸æ', 'ÇëÑ¡ÔñÊäÈëÊı¾İ¸ñÊ½¡¢Êä³ö¸ñÊ½¡¢ÊäÈëÎÄ¼ş¼°ºÏ²¢ÎÄ¼ş»òÊä³öÂ·¾¶')
+    tk.messagebox.showwarning('è­¦å‘Š', 'è¯·é€‰æ‹©è¾“å…¥æ•°æ®æ ¼å¼ã€è¾“å‡ºæ ¼å¼ã€è¾“å…¥æ–‡ä»¶åŠåˆå¹¶æ–‡ä»¶æˆ–è¾“å‡ºè·¯å¾„')
 
 
 def tansformCatalog():   # show varay
@@ -96,44 +96,44 @@ def tansformCatalog():   # show varay
     global incat
     global outcat
     if incat == '' or outcat == '' or infilename == '' or outfilename == '':
-        print("showwarning:", tk.messagebox.showwarning('¾¯¸æ', 'ÇëÑ¡ÔñÊäÈëÊı¾İ¸ñÊ½¡¢Êä³ö¸ñÊ½¡¢ÊäÈëÎÄ¼ş¼°ºÏ²¢ÎÄ¼ş»òÊä³öÂ·¾¶'))
+        print("showwarning:", tk.messagebox.showwarning('è­¦å‘Š', 'è¯·é€‰æ‹©è¾“å…¥æ•°æ®æ ¼å¼ã€è¾“å‡ºæ ¼å¼ã€è¾“å…¥æ–‡ä»¶åŠåˆå¹¶æ–‡ä»¶æˆ–è¾“å‡ºè·¯å¾„'))
         # if mergefilename == '':
     #     q2e(infilename, outfilename)
     else:
         q2e(infilename, outfilename)
 
 
-# ´´½¨ÊäÈëÊä³öÊı¾İÀàĞÍ±êÇ©
-tk.Label(window, bg='ghostwhite', text='ÇëÑ¡ÔñÊäÈëÊı¾İ¸ñÊ½£¨ÇëÑ¡ÔñQ01£¬ÒòÎªÆäËûÑ¡ÏîÑ¡ÁËÒ²Ã»ÓÃ£©').place(x=30, y=20)
-tk.Label(window, bg='ghostwhite', text='ÇëÑ¡ÔñÊä³öÊı¾İ¸ñÊ½£¨ÇëÑ¡ÔñEQT£¬ÒòÎªÆäËûÑ¡ÏîÑ¡ÁËÒ²Ã»ÓÃ£©').place(x=30, y=80)
+# åˆ›å»ºè¾“å…¥è¾“å‡ºæ•°æ®ç±»å‹æ ‡ç­¾
+tk.Label(window, bg='ghostwhite', text='è¯·é€‰æ‹©è¾“å…¥æ•°æ®æ ¼å¼ï¼ˆè¯·é€‰æ‹©Q01ï¼Œå› ä¸ºå…¶ä»–é€‰é¡¹é€‰äº†ä¹Ÿæ²¡ç”¨ï¼‰').place(x=30, y=20)
+tk.Label(window, bg='ghostwhite', text='è¯·é€‰æ‹©è¾“å‡ºæ•°æ®æ ¼å¼ï¼ˆè¯·é€‰æ‹©EQTï¼Œå› ä¸ºå…¶ä»–é€‰é¡¹é€‰äº†ä¹Ÿæ²¡ç”¨ï¼‰').place(x=30, y=80)
 # test
-# ln = tk.Label(window, text='±äÁ¿²âÊÔ', width=50)
+# ln = tk.Label(window, text='å˜é‡æµ‹è¯•', width=50)
 # ln.place(x=0, y=0)
-# ´´½¨ÊäÈë¸ñÊ½µ¥Ñ¡Ñ¡Ïî
+# åˆ›å»ºè¾“å…¥æ ¼å¼å•é€‰é€‰é¡¹
 tk.Radiobutton(window, text='Q01', variable=inType, value='Q01', command=incatalog_selection).place(x=50, y=50)
 tk.Radiobutton(window, text='EQT', variable=inType, value='EQT', command=incatalog_selection).place(x=180, y=50)
 tk.Radiobutton(window, text='C62', variable=inType, value='C62', command=incatalog_selection).place(x=310, y=50)
-# ´´½¨Êä³ö¸ñÊ½µ¥Ñ¡Ñ¡Ïî
+# åˆ›å»ºè¾“å‡ºæ ¼å¼å•é€‰é€‰é¡¹
 tk.Radiobutton(window, text='Q01', variable=outType, value='Q01', command=outcatalog_selection).place(x=50, y=110)
 tk.Radiobutton(window, text='EQT', variable=outType, value='EQT', command=outcatalog_selection).place(x=180, y=110)
 tk.Radiobutton(window, text='C62', variable=outType, value='C62', command=outcatalog_selection).place(x=310, y=110)
-# ´´½¨Ñ¡ÔñÊäÈëÎÄ¼ş±êÇ©¡¢ÊäÈë¿ò¡¢°´Å¥
-tk.Label(window, bg='ghostwhite', text='´ı×ª»»Ä¿Â¼:').place(x=30, y=160)
+# åˆ›å»ºé€‰æ‹©è¾“å…¥æ–‡ä»¶æ ‡ç­¾ã€è¾“å…¥æ¡†ã€æŒ‰é’®
+tk.Label(window, bg='ghostwhite', text='å¾…è½¬æ¢ç›®å½•:').place(x=30, y=160)
 tk.Entry(window, width=25, textvariable=selectedFileName).place(x=120, y=160)
 tk.Button(window, text='...', command=selectFile).place(x=360, y=160)
-# ´´½¨Ñ¡ÔñÊä³öÎÄ¼ş±êÇ©¡¢ÊäÈë¿ò¡¢°´Å¥
-tk.Label(window, bg='ghostwhite', text='Êä³öÄ¿Â¼ÖÁ:').place(x=30, y=190)
+# åˆ›å»ºé€‰æ‹©è¾“å‡ºæ–‡ä»¶æ ‡ç­¾ã€è¾“å…¥æ¡†ã€æŒ‰é’®
+tk.Label(window, bg='ghostwhite', text='è¾“å‡ºç›®å½•è‡³:').place(x=30, y=190)
 tk.Entry(window, width=25, textvariable=selectedDirectory).place(x=120, y=190)
 tk.Button(window, text='...', command=selectDirectory).place(x=360, y=190)
-# ´´½¨Ñ¡ÔñºÏ²¢ÎÄ¼ş±êÇ©¡¢ÊäÈë¿ò¡¢°´Å¥
-tk.Label(window, bg='ghostwhite', text='ºÏ²¢Ä¿Â¼ÖÁ:').place(x=30, y=220)
+# åˆ›å»ºé€‰æ‹©åˆå¹¶æ–‡ä»¶æ ‡ç­¾ã€è¾“å…¥æ¡†ã€æŒ‰é’®
+tk.Label(window, bg='ghostwhite', text='åˆå¹¶ç›®å½•è‡³:').place(x=30, y=220)
 tk.Entry(window, width=25, textvariable=selectedMergeFile).place(x=120, y=220)
 tk.Button(window, text='...', command=selectMergeFile).place(x=360, y=220)
-# Ìí¼Ó×ª»»°´Å¥
-tk.Button(window, text='ÄÔ²Ğ×ª»»', command=tansformCatalog).place(x=80, y=260)
-# Ìí¼ÓºÏ²¢°´Å¥
-tk.Button(window, text='×ª»»&ºÏ²¢', command=warninggg).place(x=180, y=260)
-# Ìí¼ÓÈ¡Ïû°´Å¥
-tk.Button(window, text='È¡Ïû', command=window.quit).place(x=290, y=260)
+# æ·»åŠ è½¬æ¢æŒ‰é’®
+tk.Button(window, text='è„‘æ®‹è½¬æ¢', command=tansformCatalog).place(x=80, y=260)
+# æ·»åŠ åˆå¹¶æŒ‰é’®
+tk.Button(window, text='è½¬æ¢&åˆå¹¶', command=warninggg).place(x=180, y=260)
+# æ·»åŠ å–æ¶ˆæŒ‰é’®
+tk.Button(window, text='å–æ¶ˆ', command=window.quit).place(x=290, y=260)
 
 window.mainloop()
